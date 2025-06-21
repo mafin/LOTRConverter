@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExchageInfoView: View {
+struct ExchangeInfoView: View {
     var body: some View {
         ZStack {
             // background
@@ -27,22 +27,28 @@ struct ExchageInfoView: View {
                     .font(.title3)
                     .padding()
                 //exchage rate
-                HStack {
-                    // left
-                    Image(.goldpiece)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 33)
-                    
-                    // exchage
-                    Text("1 Gold Piece = 4 Gold Pennies")
-                    
-                    // right
-                    Image(.goldpenny)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 33)
-                }
+                ExchangeRateView(
+                    leftImage: .goldpiece,
+                    textInfo: "1 Gold Piece = 4 Gold Pennies",
+                    rightImage: .goldpenny
+                )
+                ExchangeRateView(
+                    leftImage: .goldpenny,
+                    textInfo: "1 Gold Penny = 4 Silver Pieces",
+                    rightImage: .silverpiece
+                )
+                
+                ExchangeRateView(
+                    leftImage: .silverpiece,
+                    textInfo: "1 Silver Piece = 4 Silver Pennies",
+                    rightImage: .silverpenny
+                )
+                
+                ExchangeRateView(
+                    leftImage: .silverpenny,
+                    textInfo: "1 Silver Penny = 100 Copper pennies",
+                    rightImage: .copperpenny
+                )
                 
                 //done button
                 Button("Done") {
@@ -60,5 +66,5 @@ struct ExchageInfoView: View {
 }
 
 #Preview {
-    ExchageInfoView()
+    ExchangeInfoView()
 }
