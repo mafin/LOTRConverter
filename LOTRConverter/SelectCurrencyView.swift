@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SelectCurrencyView: View {
     @Environment(\.dismiss) var dismiss
-    @State var selectedCurrency: Currency
+    @State var topCurrency: Currency
+    @State var bottomCurrency: Currency
     
     var body: some View {
         ZStack {
@@ -25,30 +26,14 @@ struct SelectCurrencyView: View {
                     .fontWeight(.bold)
                 
                 // currency icon
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(Currency.allCases) { currency in
-                        if selectedCurrency == currency {
-                            CurrencyIconView(currencyImage: currency.image, currencyName: currency.name)
-                                .shadow(color: .black, radius: 10)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .stroke(lineWidth: 3)
-                                        .opacity(0.5)
-                                }
-                        } else {
-                            CurrencyIconView(currencyImage: currency.image, currencyName: currency.name)
-                                .onTapGesture {
-                                    selectedCurrency = currency
-                                }
-                        }
-                    }
-                }
+                IconGridView(selectedCurrency: topCurrency)
                 // text
                 Text("Select the currency you would like to convert to:")
                     .fontWeight(.bold)
+                    .padding(.top)
                     
                 // currency icon
-                CurrencyIconView(currencyImage: .copperpenny, currencyName: "Copper Penny")
+                IconGridView(selectedCurrency: bottomCurrency)
                 
                 // done button
                 Button("Done") {
@@ -62,10 +47,11 @@ struct SelectCurrencyView: View {
             }
             .padding()
             .multilineTextAlignment(.center)
+            .foregroundStyle(.black)
         }
     }
 }
 
 #Preview {
-    SelectCurrencyView(selectedCurrency: .silverPiece)
+    SelectCurrencyView(topCurrency: .silverPenny, bottomCurrency: .goldPenny)
 }
